@@ -161,6 +161,7 @@ var LoginWithFacebook = function () {
             console.log('response connect', response);
             console.log('DdpClient connect');
 
+            
             DdpClient.connect()
                 .done(function () {
                     console.log('DdpClient connect done');
