@@ -20,8 +20,7 @@
 var profile = null;
 
 
-var lc_tes = location;
-var html_con = null;
+
 //var baseAppUrl = 'https://thanx.io';
 //var baseAppUrl = 'http://test.thanx.io:7000';
 var baseAppUrl = 'http://bitconnect.us';
@@ -128,6 +127,7 @@ var baseAppPath = document.URL.split("app.html")[0];
  return conn.promise();
  };
  */
+
 
 
 var DeviceState = false;
