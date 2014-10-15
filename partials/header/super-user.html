@@ -1,0 +1,43 @@
+<div class="header-l">
+
+    <div ng-click="goTo('conversations')" class="me-btn">
+        <img id="back-btn" class="max-h" src="img/ui/left-arrow.png">
+    </div>
+
+
+</div>
+
+<div class="header-c">
+
+    <div ng-click="Theme.setBalanceUnits()"
+         ng-class="Theme.balanceUnits == 'sat' ? 'orange-color'  : 'light-green-color'"
+         class="balance-container animate-switch text-wrapper">
+
+        {{Theme.getBalance()}}
+        <br>
+
+            <span id="units-container">
+                   {{Theme.balanceUnits == 'sat' ? 'satoshi' :'thanx'}}
+            </span>
+
+
+    </div>
+
+</div>
+
+<div class="header-r">
+
+    <div ng-click="goTo('info/'+ Theme.otherUserId )"
+         class="orange-color other-profile-pic orange-circle">
+
+        <img ng-src="{{ getFbProfilePic(Theme.otherUserId) }}"/>
+    </div>
+
+    <div class="sub-text user-name">
+        {{ Theme.otherUser.fullname ? Theme.otherUser.fullname.toLowerCase() : "" }}
+    </div>
+
+</div>
+
+
+

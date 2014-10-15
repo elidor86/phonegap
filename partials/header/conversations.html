@@ -1,0 +1,47 @@
+<div class="header-l">
+
+    <div id="me-btn" ng-click="toggleMenu()" class="orange-color me-btn orange-circle">
+        <img ng-src="{{getMeFbProfilePic()}}">
+
+
+    </div>
+
+    <div class="sub-text-me">
+        me
+    </div>
+</div>
+
+
+<div class="header-c">
+
+    <div ng-click="Theme.setBalanceUnits()"
+         ng-class="Theme.balanceUnits == 'sat' ? 'orange-color'  : 'light-green-color'"
+         class="balance-container animate-switch text-wrapper">
+
+        {{Theme.getBalance()}}
+        <br>
+
+            <span id="units-container">
+                   {{Theme.balanceUnits == 'sat' ? 'satoshi' :'thanx'}}
+            </span>
+
+
+    </div>
+
+
+</div>
+
+
+<div class="header-r">
+
+
+    <div ng-click="Theme.showConnect($event)" class="connect-btn">
+        <img src="img/ui/thanx_icon.png">
+    </div>
+
+    <div class="sub-text">
+        connect
+    </div>
+</div>
+
+

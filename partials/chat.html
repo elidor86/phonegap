@@ -1,0 +1,176 @@
+<div class="view-wrapper">
+
+
+    <div id="content-chat" class="content scrollable">
+
+        <div id="chat-container">
+
+            <div ng-repeat="citem in interactions1 track by citem.id" id="{{citem.id}}"
+                 class="messages">
+
+                <div ng-if="citem.showLine" class="time-line">{{ citem.formatTime }}</div>
+
+                <div ng-class="{plus:citem.sign=='plus',minus:citem.sign=='minus', leftmsg: citem.direction == 'incoming', rightmsg: citem.direction == 'outgoing', cancelled: citem.cancelled || citem.rejected}"
+                     class="chatRow">
+
+                    <div ng-if="citem.direction=='incoming'" class="l">
+                        <img ng-src="{{ getFbProfilePic(citem.sender.id) }}"/>
+                    </div>
+
+
+                    <div class="c">
+
+                        <div dir="auto" render-chat-msg="render-chat-msg" class="msg"></div>
+
+                        <div class="buts" ng-if="!citem.secondTx">
+
+
+                            <div ng-if="citem.tnx || citem.sat"
+                                 ng-class="{in: citem.requestType == 'GIVE',out: citem.requestType == 'GET' ,tnx: citem.tnx, sat:citem.sat}"
+                                 class="tx-chat-container">
+
+
+                                <div ng-class="{'coin-right': citem.sign == 'minus','coin-left': citem.sign == 'plus'}"
+                                     class="indicator" style="background-image: url({{getCoinImg(citem)}})"></div>
+
+                                <span class="amount">
+                                    {{ citem.tnx || citem.sat }}&nbsp;
+                                </span>
+
+                                {{citem.tnx ? 'thanx' : 'satoshi'}}
+
+                                {{ getDirectionText(citem) }}
+
+
+                            </div>
+
+
+                            <div>
+
+
+
+
+                           <span ng-if="citem.direction=='outgoing' &amp;&amp; citem.isPending &amp;&amp; citem.requestType == 'GIVE'"
+
+                                 ng-click="accept(citem)" class="chat-btns">
+                                thanx
+                            </span>
+
+                            <span ng-if="citem.direction=='incoming' &amp;&amp; citem.isPending"
+
+                                  ng-click="reject(citem,citem.direction)" class="chat-btns orange-color">
+                                cancel
+                            </span>
+
+
+
+                            <span ng-if="citem.direction=='outgoing' &amp;&amp; citem.isPending"
+
+                                  ng-click="reject(citem,citem.direction)" class="chat-btns orange-color">
+                                 {{ citem.requestType == 'GIVE' ? 'no thanx' : 'nope'}}
+                            </span>
+
+                                    <span ng-if="citem.direction=='outgoing' &amp;&amp; citem.isPending &amp;&amp; citem.requestType == 'GET'"
+
+                                          ng-click="accept(citem)" class="chat-btns orange-color">
+                                    sure
+                                </span>
+                            </div>
+
+
+                        </div>
+
+                        <div class="bub" style="background-image: url({{getBubImg(citem)}})"></div>
+
+                    </div>
+
+                    <div ng-if="citem.direction=='outgoing'" class="l">
+                        <img ng-src="{{ getFbProfilePic(citem.sender.id) }}"/>
+                    </div>
+
+                    <div class="clear"></div>
+                </div>
+            </div>
+            <div id="scroll-to"></div>
+
+        </div>
+
+    </div>
+
+    <div id="chat-btm" class="border-top-dark  dark-green-bg">
+
+        <div id="chat-container-toggle" class="dark-green-bg border-top-dark ">
+            <img src="img/ui/up_arrow.png">
+        </div>
+
+        <div class="strip dark-green-bg"></div>
+
+        <div id="chat-msg-container" class="dark-green-bg">
+
+            <div id="input-container">
+
+                <textarea msd-elastic ng-model="msg" rows="1" placeholder="type a message..."
+                          class="chat-msg-input orange-color costume-input-border dark-green-bg">
+                </textarea>
+
+
+            </div>
+
+
+            <div id="chat-msg-action-btn" ng-switch on="getActionImage()" ng-click="sendMessage()">
+
+                <div class="" ng-switch-when="sendMsg">
+                    <img src="img/ui/send_msg.png">
+                </div>
+
+                <div class="" ng-switch-when="out">
+                    <img src="img/ui/out.png">
+                </div>
+
+                <div class="" ng-switch-when="in">
+                    <img src="img/ui/in.png">
+                </div>
+
+                <div class="" ng-switch-when="sendOneTnx">
+                    <img src="img/ui/send_thanx.png">
+                </div>
+
+            </div>
+
+        </div>
+
+        <div id="main-slider-container" class="slider-container">
+
+            <div class="slider-wrapper costume-input-border">
+
+                <div id="main-arrow-left" class="s-left light-green-color text-wrapper">
+                    <span class="in-text">in</span> <img class="max-h" src="img/ui/left-arrow.png">
+                </div>
+
+                <div id="main-c" ng-click="toggleUnits()" class="s-center s-center-chat">
+                    <img class="prevent-main-swipe" ng-src="{{getCoinImgUrl()}}">
+                </div>
+
+                <div id="main-arrow-right" class="s-right orange-color text-wrapper">
+                    <img class="max-h" src="img/ui/right-arrow.png">
+                    <span class="out-text">out</span>
+                </div>
+
+                <div class="tx-settings-container"
+                     ng-class="direction == 'out' ? 'orange-color'  : 'light-green-color'">
+
+                    <input type="number" placeholder="0" min="0" ng-model="amount" ng-keypress="numKeypress($event)" style="color: inherit"
+                           class=""/>
+
+                    <span> {{units =='tnx' ? 'thanx' :'satoshi'}} </span>
+                    <span> {{direction}} </span>
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+
+</div>
+

@@ -1,0 +1,183 @@
+<div class="view-wrapper">
+
+    <div id="content-chat" class="content scrollable">
+
+        <div id="chat-container">
+
+            <div ng-repeat="citem in interactions1 track by citem.id" id="{{citem.id}}" chat-item="chat-item"
+                 class="messages">
+
+                <div ng-if="citem.showLine" class="time-line">{{ citem.formatTime }}</div>
+
+                <div ng-class="{leftmsg: citem.direction == 'incoming', rightmsg: citem.direction == 'outgoing', cancelled: citem.cancelled || citem.rejected}"
+                     class="chatRow">
+
+                    <div ng-if="citem.direction=='incoming'" class="l">
+                        <img ng-src="{{ getFbProfilePic(citem.sender.id) }}"/>
+                    </div>
+
+                    <div class="c">
+
+                        <div dir="auto" render-chat-msg="render-chat-msg" class="msg"></div>
+
+
+                        <div class="buts" ng-if="!citem.secondTx">
+
+
+                            <div ng-if="citem.tnx || citem.sat"
+                                 ng-class="{out: citem.requestType == 'GIVE',in: citem.requestType == 'GET' ,tnx: citem.tnx, sat:citem.sat}"
+                                 class="tx-chat-container">
+
+
+                                <div class="indicator"></div>
+                                <span class="amount">
+                                    {{ citem.tnx || citem.sat }}&nbsp;
+                                </span>
+
+                                {{citem.tnx ? 'thanx' : 'satoshi'}}
+
+                                {{ citem.requestType == 'GIVE' ? 'out' :'in' }}
+
+
+                            </div>
+
+
+                            <a ng-if="citem.direction=='incoming' &amp;&amp; citem.isPending &amp;&amp; citem.requestType == 'GET'"
+                               ng-click="accept(citem)" class="chat-btns orange-color">
+                                send
+                            </a>
+
+                       <span ng-if="citem.direction=='incoming' &amp;&amp; citem.isPending &amp;&amp; citem.requestType == 'GIVE'"
+                             ng-click="accept(citem)" class="chat-btns">
+                            accept
+                        </span>
+
+                            <span ng-if="citem.direction=='outgoing' &amp;&amp; citem.isPending"
+                                  ng-click="reject(citem,citem.direction)" class="chat-btns orange-color">
+                                cancel
+                            </span>
+
+
+                            <a ng-if="citem.direction=='incoming' &amp;&amp; citem.isPending"
+                               ng-click="reject(citem,citem.direction)" class="but xico">
+                                <i class="fa fa-times"></i>
+                            </a>
+                        </div>
+
+                        <div class="buts two-way" ng-if="citem.secondTx">
+
+
+                            <div ng-if="citem.tnx || citem.sat"
+                                 ng-class="{out: citem.requestType == 'GIVE',in: citem.requestType == 'GET' ,tnx: citem.tnx, sat:citem.sat}"
+                                 class="tx-chat-container">
+
+
+                                <div class="indicator"></div>
+                                <span class="amount">
+                                    {{ citem.tnx || citem.sat }}&nbsp;
+                                </span>
+
+                                {{citem.tnx ? 'thanx' : 'satoshi'}}
+
+                                {{ citem.requestType == 'GIVE' ? 'out' :'in' }}
+
+
+                            </div>
+
+                            <div style="margin-top: 3rem;" ng-if="citem.tnx || citem.sat"
+                                 ng-class="{out: citem.secondTx.direction == 'out',in: citem.secondTx.direction == 'in' ,tnx: citem.secondTx.units=='tnx', sat:citem.secondTx.units=='sat'}"
+                                 class="tx-chat-container">
+
+
+                                <div class="indicator"></div>
+
+                                <span class="amount">
+                                    {{ citem.secondTx.amount }}&nbsp;
+                                </span>
+
+                                {{citem.secondTx.units=='tnx' ? 'thanx' : 'satoshi'}}
+
+                                {{ citem.secondTx.direction }}
+
+
+                            </div>
+
+
+                            <a ng-if="citem.direction=='incoming' &amp;&amp; citem.isPending &amp;&amp; citem.requestType == 'GET'"
+                               ng-click="accept(citem)" class="chat-btns orange-color">
+                                send
+                            </a>
+
+                        <span ng-if="citem.direction=='incoming' &amp;&amp; citem.isPending &amp;&amp; citem.requestType == 'GIVE'"
+                              ng-click="acceptTwoWay(citem)" class="chat-btns">
+                            accept
+                        </span>
+
+                            <span ng-if="citem.direction=='outgoing' &amp;&amp; citem.isPending"
+                                  ng-click="reject(citem,citem.direction)" class="chat-btns orange-color">
+                                cancel
+                            </span>
+
+
+                            <a ng-if="citem.direction=='incoming' &amp;&amp; citem.isPending"
+                               ng-click="reject(citem,citem.direction)" class="but xico">
+                                <i class="fa fa-times"></i>
+                            </a>
+                        </div>
+
+                        <div class="bub"></div>
+                    </div>
+
+                    <div ng-if="citem.direction=='outgoing'" class="l">
+                        <img ng-src="{{ getFbProfilePic(citem.sender.id) }}"/>
+                    </div>
+
+                    <div class="clear"></div>
+                </div>
+            </div>
+            <div id="scroll-to"></div>
+        </div>
+
+    </div>
+
+
+    <div id="chat-btm" class="border-top-dark  dark-green-bg" style="height: 40rem">
+
+
+        <div class="strip dark-green-bg"></div>
+
+        <div id="chat-msg-container" class="dark-green-bg">
+
+            <div id="input-container">
+
+                <input ng-init="amount=Theme.qrAmount" ng-model="amount" type="text"
+                       placeholder="amount of satoshi to send"
+                       class="chat-msg-input orange-color costume-input-border dark-green-bg">
+
+            </div>
+
+
+            <div id="chat-msg-action-btn" ng-click="sendMessage()">
+
+                <img src="img/ui/out.png">
+
+            </div>
+
+        </div>
+
+        <div id="main-slider-container" class="slider-container">
+
+            <div class="slider-wrapper costume-input-border">
+
+
+                <div id="main-c" class="s-center"><img src="img/ui/bitcoin_icon.png"></div>
+
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</div>

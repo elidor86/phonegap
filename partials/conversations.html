@@ -1,0 +1,50 @@
+<div id="conversations-view" class="view-wrapper">
+
+
+    <div id="conversations-container" infinite-scroll="loadMore()" infinite-scroll-distance="3" when-scrolled="HistoryService.loadMore()" class="content scrollable">
+
+
+        <div class="conversation-item" ng-repeat="hitem in HistoryService.getConversations()"
+             ng-init="item=setItem(hitem)" id="{{hitem.id}}" ng-click="goTo(item.path)">
+
+
+            <div class="profile-pic-container dark-green-bg" style=''>
+
+                <img ng-src="{{item.imageUrl}}" class="profile-pic">
+
+            </div>
+
+            <div class="center-container">
+
+                <div class="p-name text-wrapper">
+
+                    {{item.username}}
+                </div>
+
+                <div class="p-msg text-wrapper">
+                    {{item.message}}
+                </div>
+
+            </div>
+
+            <div class="right-container orange-color">
+
+                <div ng-if="item.pendingOutCounter > 0" class="out-counter">
+                    {{item.pendingOutCounter}}
+                </div>
+
+                <div ng-if="item.pendingInCounter > 0" class="in-counter orange-color">
+
+                    {{item.pendingInCounter}}
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+</div>

@@ -1,0 +1,112 @@
+<div class="header-l">
+
+    <div ng-switch on="Theme.headerLeftState">
+
+        <div class="animate-switch" ng-switch-when="invite">
+
+            <div ng-click="Theme.hideConnect()" class="me-btn">
+                <img id="back-btn" class="max-h" src="img/ui/left-arrow.png">
+            </div>
+
+        </div>
+
+
+        <div class="animate-switch" ng-switch-when="chat">
+
+            <div ng-click="goTo('conversations')" class="me-btn">
+                <img id="back-btn" class="max-h" src="img/ui/left-arrow.png">
+            </div>
+
+        </div>
+
+        <div class="animate-switch" ng-switch-default>
+
+            <div id="me-btn" ng-click="toggleMenu()" class="orange-color me-btn orange-circle">
+                <img ng-src="{{getMeFbProfilePic()}}">
+            </div>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+<div class="header-c">
+
+    <div ng-switch on="Theme.headerCenterState">
+
+        <div class="animate-switch orange-color text-wrapper" ng-switch-when="text">
+
+            {{Theme.headerText}}
+
+        </div>
+
+
+        <div class="animate-switch orange-color text-wrapper" ng-switch-when="connect">
+
+
+        </div>
+
+
+        <div ng-click="Theme.setBalanceUnits()"
+             ng-class="Theme.balanceUnits == 'sat' ? 'orange-color'  : 'light-green-color'"
+             class="balance-container animate-switch text-wrapper" ng-switch-when="balance">
+
+            {{Theme.getBalance()}}
+            <br>
+
+            <span id="units-container">
+                   {{Theme.balanceUnits == 'sat' ? 'satoshi' :'thanx'}}
+            </span>
+
+
+        </div>
+
+        <div class="animate-switch" ng-switch-default>
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+<div class="header-r">
+
+
+    <div ng-switch on="Theme.headerRightState">
+
+        <div class="animate-switch orange-color text-wrapper" ng-switch-when="selectAll">
+
+
+        </div>
+
+
+        <div class="animate-switch" ng-switch-when="chat">
+
+            <div ng-click="goTo('info/'+{{ Theme.otherUser.id }}+'')"
+                 class="orange-color other-profile-pic orange-circle">
+
+                <img ng-src="{{ getFbProfilePic(Theme.otherUser.id) }}"/>
+            </div>
+
+        </div>
+
+        <div class="animate-switch" ng-switch-default>
+
+            <div ng-click="Theme.showConnect($event)" class="green-circle">
+                <img src="img/ui/spinner.png">
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+
+

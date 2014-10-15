@@ -1,0 +1,31 @@
+<div id="modal-wrapper">
+
+    <div class="confirm-text light-green-color">
+        I understand that without my password, I cannot access bitcoins on my address ,please enter your password again:
+    </div>
+
+    <div id="logmein-modal-input-container">
+        <input ng-model="Theme.modalFields.confirmPassword" type="text"
+               class="orange-color costume-input-border dark-green-bg">
+    </div>
+
+
+    <div id="confirm-btns-container">
+
+        <div ng-click="Theme.confirmModalBtn()" class="btns orange-color">
+            <span>login</span>
+            <img src="img/ui/coin-green.png">
+        </div>
+
+
+        <div ng-click="Theme.cancelModalBtn()" class="btns orange-color">
+            <span>no <br>thanx</span>
+            <img src="img/ui/coin-orange.png">
+        </div>
+
+
+    </div>
+
+</div>
+
+
